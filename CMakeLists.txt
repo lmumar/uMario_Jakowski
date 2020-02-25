@@ -1,4 +1,4 @@
-cmake_minimum_required(VERSION 2.6)
+cmake_minimum_required(VERSION 2.8)
 project(uMario)
 
 # Use our modified FindSDL2* modules
@@ -17,11 +17,11 @@ elseif (${CMAKE_CXX_COMPILER_ID} STREQUAL "MSVC")
 		set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} /W4")
 	endif()
 endif()
-
+link_directories(/usr/local/lib)
 find_package(SDL2 REQUIRED)
 find_package(SDL2_Image REQUIRED)
 find_package(SDL2_Mixer REQUIRED)
-include_directories(${SDL2_INCLUDE_DIR} ${SDL2_IMAGE_INCLUDE_DIR} ${SDL2_MIXER_INCLUDE_DIR})
+include_directories(${SDL2_INCLUDE_DIRS} ${SDL2_IMAGE_INCLUDE_DIRS} ${SDL2_MIXER_INCLUDE_DIRS})
 
 file(COPY uNext/files DESTINATION .)
 
@@ -30,6 +30,6 @@ include_directories(uNext)
 file(GLOB_RECURSE uMario_SOURCES "uNext/*.cpp")
 add_executable (uMario ${uMario_SOURCES})
 
-target_link_libraries(uMario ${SDL2_LIBRARY} ${SDL2_IMAGE_LIBRARY} ${SDL2_MIXER_LIBRARY})
+target_link_libraries(uMario ${SDL2_LIBRARIES} ${SDL2_IMAGE_LIBRARY} ${SDL2_MIXER_LIBRARIES})
 
 install(TARGETS uMario RUNTIME DESTINATION ${BIN_DIR})
